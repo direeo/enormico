@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - Enormico</title>
+  <link rel="stylesheet" href="register.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <div class="main-container">
+    <h1 class="welcome-title">WELCOME TO ENORMICO</h1>
+    <div class="register-box">
+      <h2>Register</h2>
+      <form id="registerForm" autocomplete="off">
+        <input type="text" name="name" placeholder="User Name" required />
+        <input type="email" name="email" placeholder="Email Address" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <input type="tel" name="phone" placeholder="Phone Number" required />
+        <label for="dob">Date of Birth</label>
+        <input type="date" name="dob" id="dob" required />
+
+        <ul class="password-requirements">
+          <li id="length" class="invalid">❌ At least 8 characters</li>
+          <li id="uppercase" class="invalid">❌ One uppercase letter</li>
+          <li id="lowercase" class="invalid">❌ One lowercase letter</li>
+          <li id="number" class="invalid">❌ One number</li>
+          <li id="special" class="invalid">❌ One special character</li>
+        </ul>
+
+        <p id="registerError" class="error-text"></p>
+        <button type="submit" class="submit-btn">Register</button>
+      </form>
+
+      <div id="otpSection" style="display:none;">
+        <p>Enter the OTP sent to your email:</p>
+        <input type="text" id="otpInput" placeholder="6-digit OTP" />
+        <button id="verifyOtpBtn" class="submit-btn">Verify OTP</button>
+      </div>
+
+      <p class="redirect-link">Already have an account? <a href="signIn.html">Sign in</a></p>
+    </div>
+  </div>
+
+  <script src="register.js"></script>
+</body>
+</html>
