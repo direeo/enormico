@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Enormico</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2>ENORMICO</h2>
+      <ul>
+        <li><a href="#overview">Dashboard</a></li>
+        <li><a href="#account">Account</a></li>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#investments">Investments</a></li>
+        <li><a href="#history">Transactions</a></li>
+        <li><a href="#settings">Settings</a></li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <section id="overview">
+        <h1>Welcome Back!</h1>
+        <p>Your recent activities and updates will appear here.</p>
+      </section>
+
+      <section id="account">
+        <h2>Account Details</h2>
+        <p>Username: <span id="username">Loading...</span></p>
+        <p>Email: user@example.com</p>
+      </section>
+
+      <section id="profile">
+        <h2>Profile</h2>
+        <label>Upload Profile Picture</label>
+        <input type="file" id="profilePicInput" />
+        <div class="preview">
+          <img id="profilePreview" src="default-avatar.png" alt="Profile Preview" />
+        </div>
+      </section>
+
+      <section id="investments">
+        <h2>Ongoing Investments</h2>
+        <ul>
+          <li>₦100,000 - 17% ROI - Status: Active</li>
+          <li>₦700,000 - 25% ROI - Status: Pending</li>
+        </ul>
+      </section>
+
+      <section id="history">
+        <h2>Transaction History</h2>
+        <p>No transactions yet.</p>
+      </section>
+
+      <section id="settings">
+        <h2>Settings</h2>
+        <p>More options coming soon.</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
