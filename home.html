@@ -2,37 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home - Enormico</title>
   <link rel="stylesheet" href="home.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="navbar">
     <div class="logo">ENORMICO</div>
-    <nav>
+    
+    <nav id="navMenu">
       <ul>
         <li><a href="#">Home</a></li>
         <li class="dropdown">
           <a href="#">Plans ▾</a>
           <ul class="dropdown-menu">
             <li><a href="#">₦50k – ₦500k (17%)</a></li>
-            <li><a href="#">₦500k – ₦2M (25%)</a></li>
+            <li><a href="#">₦500k – ₦2M (23%)</a></li>
+            <li><a href="#">₦2M – ₦10M (26%)</a></li>
           </ul>
         </li>
-        <li><a href="#">Dashboard</a></li>
+    
+        <li><a href="#" id="dashboardLink">Dashboard</a></li>
         <li><a href="#">Help</a></li>
         <li><a href="#" id="logoutLink">Logout</a></li>
-
       </ul>
     </nav>
   </header>
 
   <section class="hero">
     <div class="hero-text">
-        <h1>Welcome <span id="userName">to Enormico</span></h1>
+      <h1>Welcome <span id="userName">to Enormico</span></h1>
       <h1>Invest Smarter with Enormico</h1>
       <p>Choose from various investment ranges and get matched with optimal rates.</p>
-     <a href="plans.html" class="cta-button">Get Started</a>
+      <a href="plans.html" class="cta-button">Get Started</a>
     </div>
     <div class="hero-img">
       <img src="enormino.jpeg" alt="Investment Illustration" />

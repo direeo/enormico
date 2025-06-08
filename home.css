@@ -1,4 +1,5 @@
-/* Reset and Base */
+/* Updated CSS for Enormico homepage */
+
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +13,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -22,8 +22,9 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 9999; 
 }
+
 
 .logo {
   font-size: 1.8rem;
@@ -55,18 +56,19 @@ nav ul li a:hover {
   text-decoration: underline;
 }
 
-/* Dropdown menu */
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 40px;
+  top: 100%;
   left: 0;
   background: white;
   border-radius: 8px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   padding: 10px 0;
   min-width: 220px;
-  z-index: 10;
+  z-index: 1000;
+  overflow: visible;
+  transform: translateX(-20%);
 }
 
 .dropdown:hover .dropdown-menu {
@@ -87,7 +89,6 @@ nav ul li a:hover {
   color: #341f97;
 }
 
-/* Hero Section */
 .hero {
   display: flex;
   flex-wrap: wrap;
@@ -130,7 +131,6 @@ nav ul li a:hover {
   transform: scale(1.08);
 }
 
-/* Hero Image */
 .hero-img {
   flex: 1;
   display: flex;
@@ -146,7 +146,6 @@ nav ul li a:hover {
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
 
-/* Responsive */
 @media screen and (max-width: 768px) {
   .hero {
     flex-direction: column;
@@ -157,6 +156,12 @@ nav ul li a:hover {
     flex-direction: column;
     align-items: flex-end;
     gap: 15px;
+  }
+
+  .dropdown-menu {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
   }
 
   .cta-button {

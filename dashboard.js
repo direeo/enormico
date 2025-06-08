@@ -22,3 +22,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+window.addEventListener("DOMContentLoaded", () => {
+  const investments = JSON.parse(localStorage.getItem("investments")) || [];
+  const list = document.querySelector("#investments ul");
+
+  investments.forEach(investment => {
+    const li = document.createElement("li");
+    li.textContent = `₦${investment.amount.toLocaleString()} - ${investment.roi}% ROI - Status: ${investment.status}`;
+    list.appendChild(li);
+  });
+
+  
+  const username = localStorage.getItem("username") || "Guest";
+  document.getElementById("username").textContent = username;
+});
+

@@ -1,56 +1,57 @@
-if (!localStorage.getItem("enormicoUser")) {
-  window.location.href = "signIn.html";
-}
+document.addEventListener("DOMContentLoaded", function () {
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const navMenu = document.getElementById("navMenu");
 
-
-function calculateROI() {
-  const range = document.getElementById("investmentRange").value;
-  const roiBox = document.getElementById("roiResult");
-
-  let message = "";
-  switch (range) {
-    case "range1":
-      message = "You selected ₦50,000 – ₦500,000 with an ROI of 17%.";
-      break;
-    case "range2":
-      message = "You selected ₦500,000 – ₦2,000,000 with an ROI of 25%.";
-      break;
-    default:
-      message = "Please select a valid investment range.";
+  if (hamburgerBtn && navMenu) {
+    hamburgerBtn.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+    });
   }
 
-  roiBox.textContent = message;
-  roiBox.style.display = "block";
-  roiBox.style.animation = "fadeIn 0.5s ease-out";
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const navLinks = document.querySelectorAll(".nav-links a");
-  navLinks.forEach(link => {
-    link.addEventListener("click", e => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute("href"));
-      target.scrollIntoView({ behavior: "smooth" });
+  // Fix dropdown positioning
+  const dropdowns = document.querySelectorAll(".dropdown");
+  dropdowns.forEach(dropdown => {
+    dropdown.addEventListener("mouseenter", () => {
+      const menu = dropdown.querySelector(".dropdown-menu");
+      if (menu) {
+        const rect = menu.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
+        if (rect.right > viewportWidth) {
+          menu.style.left = "auto";
+          menu.style.right = "0";
+        } else {
+          menu.style.left = "0";
+          menu.style.right = "auto";
+        }
+      }
     });
   });
-});
 
-document.addEventListener("DOMContentLoaded", () => {
-  const name = localStorage.getItem("enormicoUser");
-  const nameEl = document.getElementById("userName");
+  // Show stored username
+  const userNameSpan = document.getElementById("userName");
+  const storedUsername = localStorage.getItem("username") || "Investor";
+  if (userNameSpan) userNameSpan.textContent = storedUsername;
 
-  if (name && nameEl) {
-    nameEl.textContent = name + "!";
+  // 🚨 Add logs to confirm events are attaching
+  const dashboardLink = document.getElementById("dashboardLink");
+  const logoutLink = document.getElementById("logoutLink");
+
+  if (dashboardLink) {
+    console.log("Attaching event to dashboardLink");
+    dashboardLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log("Redirecting to dashboard...");
+      window.location.href = "dashboard.html";
+    });
   }
 
-  const logoutBtn = document.getElementById("logoutLink");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", (e) => {
+  if (logoutLink) {
+    console.log("Attaching event to logoutLink");
+    logoutLink.addEventListener("click", function (e) {
       e.preventDefault();
-      localStorage.removeItem("enormicoUser");
-      window.location.href = "signIn.html";
+      console.log("Logging out...");
+      localStorage.removeItem("username");
+      window.location.href = "signin.html";
     });
   }
 });
-
-
