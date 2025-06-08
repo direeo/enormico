@@ -25,13 +25,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 window.addEventListener("DOMContentLoaded", () => {
   const investments = JSON.parse(localStorage.getItem("investments")) || [];
-  const list = document.querySelector("#investments ul");
+  const list = document.getElementById("investmentList");
 
-  investments.forEach(investment => {
-    const li = document.createElement("li");
-    li.textContent = `₦${investment.amount.toLocaleString()} - ${investment.roi}% ROI - Status: ${investment.status}`;
-    list.appendChild(li);
-  });
+  if (investments.length === 0) {
+    const emptyMsg = document.createElement("p");
+    emptyMsg.textContent = "No ongoing investments yet.";
+    list.parentElement.appendChild(emptyMsg);
+  } else {
+    investments.forEach(investment => {
+      const li = document.createElement("li");
+      li.textContent = `₦${investment.amount.toLocaleString()} - ${investment.roi}% ROI - Status: ${investment.status}`;
+      list.appendChild(li);
+    });
+  }
 
   
   const username = localStorage.getItem("username") || "Guest";
