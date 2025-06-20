@@ -1,8 +1,7 @@
-// Load username from localStorage
 document.addEventListener("DOMContentLoaded", () => {
   const usernameEl = document.getElementById("username");
-  const storedUser = localStorage.getItem("enormicoUser");
-  if (storedUser && usernameEl) {
+  const storedUser = localStorage.getItem("enormicoUser") || localStorage.getItem("username") || "Guest";
+  if (usernameEl) {
     usernameEl.textContent = storedUser;
   }
 
@@ -21,16 +20,21 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});
 
-window.addEventListener("DOMContentLoaded", () => {
+  // Investments section
   const investments = JSON.parse(localStorage.getItem("investments")) || [];
   const list = document.getElementById("investmentList");
+  list.innerHTML = ""; // Clear previous
+  // Remove any previous empty message
+  const parent = list.parentElement;
+  const prevEmpty = parent.querySelector(".empty-investments-msg");
+  if (prevEmpty) prevEmpty.remove();
 
   if (investments.length === 0) {
     const emptyMsg = document.createElement("p");
     emptyMsg.textContent = "No ongoing investments yet.";
-    list.parentElement.appendChild(emptyMsg);
+    emptyMsg.className = "empty-investments-msg";
+    parent.appendChild(emptyMsg);
   } else {
     investments.forEach(investment => {
       const li = document.createElement("li");
@@ -38,9 +42,5 @@ window.addEventListener("DOMContentLoaded", () => {
       list.appendChild(li);
     });
   }
-
-  
-  const username = localStorage.getItem("username") || "Guest";
-  document.getElementById("username").textContent = username;
 });
 

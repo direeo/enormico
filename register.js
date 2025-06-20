@@ -1,76 +1,132 @@
+// Password validation logic
 const passwordInput = document.getElementById('password');
-const length = document.getElementById('length');
-const uppercase = document.getElementById('uppercase');
-const lowercase = document.getElementById('lowercase');
-const number = document.getElementById('number');
-const special = document.getElementById('special');
-const error = document.getElementById('registerError');
+const requirements = {
+  length: document.getElementById('length'),
+  uppercase: document.getElementById('uppercase'),
+  lowercase: document.getElementById('lowercase'),
+  number: document.getElementById('number'),
+  special: document.getElementById('special'),
+};
 
-passwordInput.addEventListener('input', () => {
- passwordInput.addEventListener('input', () => {
+passwordInput.addEventListener('input', function () {
   const value = passwordInput.value;
-
-  updateRequirement(length, value.length >= 8);
-  updateRequirement(uppercase, /[A-Z]/.test(value));
-  updateRequirement(lowercase, /[a-z]/.test(value));
-  updateRequirement(number, /[0-9]/.test(value));
-  updateRequirement(special, /[!@#$%^&*(),.?":{}|<>]/.test(value));
-});
-
-function updateRequirement(element, conditionMet) {
-  if (conditionMet) {
-    element.className = 'valid';
-    element.textContent = '✅ ' + element.textContent.slice(2);
+  // Length
+  if (value.length >= 8) {
+    requirements.length.classList.remove('invalid');
+    requirements.length.classList.add('valid');
+    requirements.length.textContent = '✔ At least 8 characters';
   } else {
-    element.className = 'invalid';
-    element.textContent = '❌ ' + element.textContent.slice(2);
+    requirements.length.classList.remove('valid');
+    requirements.length.classList.add('invalid');
+    requirements.length.textContent = '❌ At least 8 characters';
   }
-}
+  // Uppercase
+  if (/[A-Z]/.test(value)) {
+    requirements.uppercase.classList.remove('invalid');
+    requirements.uppercase.classList.add('valid');
+    requirements.uppercase.textContent = '✔ One uppercase letter';
+  } else {
+    requirements.uppercase.classList.remove('valid');
+    requirements.uppercase.classList.add('invalid');
+    requirements.uppercase.textContent = '❌ One uppercase letter';
+  }
+  // Lowercase
+  if (/[a-z]/.test(value)) {
+    requirements.lowercase.classList.remove('invalid');
+    requirements.lowercase.classList.add('valid');
+    requirements.lowercase.textContent = '✔ One lowercase letter';
+  } else {
+    requirements.lowercase.classList.remove('valid');
+    requirements.lowercase.classList.add('invalid');
+    requirements.lowercase.textContent = '❌ One lowercase letter';
+  }
+  // Number
+  if (/[0-9]/.test(value)) {
+    requirements.number.classList.remove('invalid');
+    requirements.number.classList.add('valid');
+    requirements.number.textContent = '✔ One number';
+  } else {
+    requirements.number.classList.remove('valid');
+    requirements.number.classList.add('invalid');
+    requirements.number.textContent = '❌ One number';
+  }
+  // Special character
+  if (/[^A-Za-z0-9]/.test(value)) {
+    requirements.special.classList.remove('invalid');
+    requirements.special.classList.add('valid');
+    requirements.special.textContent = '✔ One special character';
+  } else {
+    requirements.special.classList.remove('valid');
+    requirements.special.classList.add('invalid');
+    requirements.special.textContent = '❌ One special character';
+  }
 });
 
-document.getElementById('registerForm').onsubmit = function(e) {
-  e.preventDefault();
+// EmailJS global usage
+(function(){
+  if (window.emailjs) {
+    emailjs.init('H-6A32KO1Z6iOewY8'); 
+  }
+})();
 
+const registerForm = document.getElementById('registerForm');
+const otpSection = document.getElementById('otpSection');
+const otpInput = document.getElementById('otpInput');
+const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+const registerError = document.getElementById('registerError');
+let generatedOtp = '';
+let userEmail = '';
+
+registerForm.onsubmit = async function (e) {
+  e.preventDefault();
   const dob = new Date(document.getElementById('dob').value);
   const today = new Date();
   let age = today.getFullYear() - dob.getFullYear();
   const m = today.getMonth() - dob.getMonth();
   if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
-
   if (age < 18) {
-    error.textContent = 'You must be at least 18 years old to register.';
+    registerError.textContent = 'You must be at least 18 years old to register.';
     return;
   }
-
-  if (
-    length.className !== 'valid' ||
-    uppercase.className !== 'valid' ||
-    lowercase.className !== 'valid' ||
-    number.className !== 'valid' ||
-    special.className !== 'valid'
-  ) {
-    error.textContent = 'Please meet all password requirements.';
+  // Password requirements
+  const password = passwordInput.value;
+  if (!(
+    password.length >= 8 &&
+    /[A-Z]/.test(password) &&
+    /[a-z]/.test(password) &&
+    /[0-9]/.test(password) &&
+    /[^A-Za-z0-9]/.test(password)
+  )) {
+    registerError.textContent = 'Password does not meet all requirements.';
     return;
   }
-
-  
-  error.textContent = '';
-  document.getElementById('registerForm').style.display = 'none';
-  document.getElementById('otpSection').style.display = 'block';
-  window.generatedOtp = '000000'; 
+  registerError.textContent = '';
+  // Generate OTP
+  generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+  userEmail = registerForm.email.value;
+  // Send OTP using EmailJS
+  if (window.emailjs) {
+    try {
+      await emailjs.send('service_oz95bhk', 'template_j039gcr', {
+        to_email: userEmail,
+        otp: generatedOtp,
+        user_name: registerForm.name.value // Add the user's name for personalization iykyk
+      });
+      registerForm.style.display = 'none';
+      otpSection.style.display = 'block';
+    } catch (err) {
+      registerError.textContent = 'Failed to send OTP. Please try again.';
+    }
+  } else {
+    registerError.textContent = 'EmailJS is not loaded.';
+  }
 };
 
-document.getElementById('verifyOtpBtn').onclick = function(e) {
+verifyOtpBtn.onclick = function (e) {
   e.preventDefault();
-  const otp = document.getElementById('otpInput').value;
-
-  if (otp === window.generatedOtp) {
-    const name = document.querySelector('input[name="name"]').value;
-    localStorage.setItem('enormicoUser', name); // 
+  if (otpInput.value === generatedOtp) {
     window.location.href = 'home.html';
   } else {
-    document.getElementById('registerError').textContent = 'Invalid OTP. Please try again.';
+    registerError.textContent = 'Invalid OTP. Please try again.';
   }
 };
-
-

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+  emailjs.init("H-6A32KO1Z6iOewY8");
+  emailjs.send('service_oz95bhk','template_j039gcr',{
+    to_name: 'Test',
+    to_email: 'youremail@example.com',
+    otp_code: '123456'
+  }).then(r => console.log("OK:", r), e => console.error("ERROR:", e));
+</script>
+</body>
+</html>

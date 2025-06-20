@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Fix dropdown positioning
+
   const dropdowns = document.querySelectorAll(".dropdown");
   dropdowns.forEach(dropdown => {
     dropdown.addEventListener("mouseenter", () => {
@@ -27,17 +27,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Show stored username
   const userNameSpan = document.getElementById("userName");
   const storedUsername = localStorage.getItem("username") || "Investor";
   if (userNameSpan) userNameSpan.textContent = storedUsername;
 
-  // 🚨 Add logs to confirm events are attaching
+
   const dashboardLink = document.getElementById("dashboardLink");
   const logoutLink = document.getElementById("logoutLink");
 
   if (dashboardLink) {
-    console.log("Attaching event to dashboardLink");
     dashboardLink.addEventListener("click", function (e) {
       e.preventDefault();
       console.log("Redirecting to dashboard...");
@@ -46,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (logoutLink) {
-    console.log("Attaching event to logoutLink");
     logoutLink.addEventListener("click", function (e) {
       e.preventDefault();
       console.log("Logging out...");

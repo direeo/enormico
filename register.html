@@ -20,28 +20,31 @@
         <label for="dob">Date of Birth</label>
         <input type="date" name="dob" id="dob" required />
 
-        <ul class="password-requirements">
-          <li id="length" class="invalid">❌ At least 8 characters</li>
-          <li id="uppercase" class="invalid">❌ One uppercase letter</li>
-          <li id="lowercase" class="invalid">❌ One lowercase letter</li>
-          <li id="number" class="invalid">❌ One number</li>
-          <li id="special" class="invalid">❌ One special character</li>
-        </ul>
+       <ul class="password-requirements">
+  <li id="length" class="invalid" data-text="At least 8 characters">❌ At least 8 characters</li>
+  <li id="uppercase" class="invalid" data-text="One uppercase letter">❌ One uppercase letter</li>
+  <li id="lowercase" class="invalid" data-text="One lowercase letter">❌ One lowercase letter</li>
+  <li id="number" class="invalid" data-text="One number">❌ One number</li>
+  <li id="special" class="invalid" data-text="One special character">❌ One special character</li>
+</ul>
+
 
         <p id="registerError" class="error-text"></p>
         <button type="submit" class="submit-btn">Register</button>
       </form>
 
-      <div id="otpSection" style="display:none;">
-        <p>Enter the OTP sent to your email:</p>
-        <input type="text" id="otpInput" placeholder="6-digit OTP" />
-        <button id="verifyOtpBtn" class="submit-btn">Verify OTP</button>
+      <div id="otpSection" style="display: none;">
+        <h3>Enter the OTP sent to your email</h3>
+        <input type="text" id="otpInput" placeholder="Enter OTP" required />
+        <button id="verifyOtpBtn">Verify OTP</button>
       </div>
 
-      <p class="redirect-link">Already have an account? <a href="signIn.html">Sign in</a></p>
+      <p class="redirect-link">Already have an account? <a href="index.html">Sign in</a></p>
     </div>
   </div>
 
-  <script src="register.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script type="module" src="register.js"></script>
 </body>
 </html>

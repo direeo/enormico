@@ -110,3 +110,52 @@ label {
 .invalid {
   color: red;
 }
+
+.back-home-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.back-home-btn {
+  display: inline-block;
+  background-color: #6a0dad; 
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.back-home-btn:hover {
+  background-color: #5a0ca5;
+}
+
+#otpSection {
+  margin-top: 20px;
+}
+
+#otpInput {
+  width: 100%;
+  padding: 12px;
+  margin: 15px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+#verifyOtpBtn {
+  width: 100%;
+  padding: 12px;
+  background: #5f27cd;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#verifyOtpBtn:hover {
+  background: #341f97;
+}
+
