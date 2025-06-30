@@ -1,46 +1,66 @@
-document.getElementById('loginForm').addEventListener('submit', async function (e) {
+const loginForm = document.getElementById('loginForm');
+const otpSection = document.getElementById('otpSection');
+const loginError = document.getElementById('loginError');
+const verifySignInOtpBtn = document.getElementById('verifySignInOtpBtn');
+const signInOtpInput = document.getElementById('signInOtpInput');
+let currentUsername = "";
+let currentUserEmail = "";
+let currentUserName = "";
+let generatedOtp = "";
+
+// Make sure EmailJS is initialized in your index.html
+// <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+// <script>emailjs.init("YOUR_EMAILJS_USER_ID");</script>
+
+loginForm.onsubmit = async function(e) {
   e.preventDefault();
-
-  const username = document.getElementById('username').value;
+  loginError.textContent = "";
+  const username = document.getElementById('username').value.trim();
   const password = document.getElementById('loginPassword').value;
-  const error = document.getElementById('loginError');
 
-  const isValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(password);
+  // Send username and password to backend to verify
+  const res = await fetch('http://localhost:3001/api/signin', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password })
+  });
+  const data = await res.json();
 
-  if (!isValid) {
-    error.textContent = 'Password must meet the requirements.';
+  if (!data.success) {
+    loginError.textContent = data.error || "Login failed.";
     return;
   }
 
-  
+  // Get user details for EmailJS
+  currentUsername = username;
+  currentUserEmail = data.user.email;
+  currentUserName = data.user.name || data.user.username || username;
 
-  const email = `${username}@example.com`; 
-  const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  window.signInOtp = otp;
+  // Generate OTP
+  generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
 
-  try {
-    await emailjs.send('service_oz95bhk', 'template_j039gcr', {
-      to_name: username,
-      to_email: email,
-      otp_code: otp,
-    });
+  // Send OTP via EmailJS (same template as register page)
+  emailjs.send("service_oz95bhk", "template_j039gcr", {
+    to_email: currentUserEmail,
+    otp: generatedOtp,
+    user_name: currentUserName
+  }).then(function() {
+    otpSection.style.display = "block";
+    loginForm.style.display = "none";
+  }, function(error) {
+    loginError.textContent = "Failed to send OTP email.";
+  });
+};
 
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('otpSection').style.display = 'block';
-  } catch (err) {
-    error.textContent = 'Failed to send OTP. Try again.';
-  }
-});
+verifySignInOtpBtn.onclick = function() {
+  loginError.textContent = "";
+  const otp = signInOtpInput.value.trim();
 
-document.getElementById('verifySignInOtpBtn').onclick = function (e) {
-  e.preventDefault();
-  const enteredOtp = document.getElementById('signInOtpInput').value;
-
-  if (enteredOtp === window.signInOtp) {
-    const username = document.getElementById('username').value;
-    localStorage.setItem('enormicoUser', username);
-    window.location.href = 'home.html';
+  if (otp === generatedOtp) {
+    localStorage.setItem("enormicoUser", currentUsername);
+    localStorage.setItem("enormicoUserEmail", currentUserEmail);
+    window.location.href = "dashboard.html";
   } else {
-    document.getElementById('loginError').textContent = 'Invalid OTP.';
+    loginError.textContent = "Invalid OTP.";
   }
 };

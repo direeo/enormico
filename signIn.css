@@ -1,66 +1,87 @@
 body {
+  background: #f5f6fa;
+  font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to left, #a18cd1, #fbc2eb);
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .login-container {
-  background: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+  max-width: 350px;
+  margin: 60px auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+  padding: 32px 24px 24px 24px;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .login-container h1 {
+  margin-bottom: 18px;
   color: #5f27cd;
-  margin-bottom: 20px;
+  font-size: 1.5rem;
 }
 
-.login-container input {
+input[type="text"], input[type="password"], input[type="email"] {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
+  margin-bottom: 16px;
+  border: 1px solid #e0e0e0;
   border-radius: 6px;
   font-size: 1rem;
+  background: #fafafa;
+  transition: border 0.2s;
+  display: block;
 }
 
-.login-container button {
+input:focus {
+  border: 1.5px solid #a18cd1;
+  outline: none;
+}
+
+button {
   width: 100%;
   padding: 12px;
-  background: #5f27cd;
-  color: white;
+  background: linear-gradient(90deg, #5f27cd 0%, #a18cd1 100%);
+  color: #fff;
   border: none;
   border-radius: 6px;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  margin-bottom: 10px;
+  transition: background 0.2s;
 }
 
-.login-container button:hover {
-  background: #341f97;
-}
-
-.register-link {
-  margin-top: 15px;
-  font-size: 0.95rem;
-}
-
-.register-link a {
-  color: #5f27cd;
-  text-decoration: none;
+button:hover {
+  background: linear-gradient(90deg, #a18cd1 0%, #5f27cd 100%);
 }
 
 .error-message {
-  color: red;
-  font-size: 0.9rem;
-  margin: -10px 0 10px;
+  color: #d32f2f;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+#otpSection {
+  margin-top: 20px;
+}
+
+.register-link {
+  margin-top: 18px;
+  font-size: 0.98rem;
+}
+
+@media (max-width: 400px) {
+  .login-container {
+    max-width: 98vw;
+    padding: 18px 4vw 18px 4vw;
+  }
+  input[type="text"], input[type="password"], input[type="email"] {
+    font-size: 0.98rem;
+    padding: 10px;
+  }
 }

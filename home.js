@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const userNameSpan = document.getElementById("userName");
-  const storedUsername = localStorage.getItem("username") || "Investor";
+  const storedUsername = localStorage.getItem("enormicoUser") || "Investor";
   if (userNameSpan) userNameSpan.textContent = storedUsername;
 
 
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       console.log("Logging out...");
       localStorage.removeItem("username");
-      window.location.href = "signin.html";
+      window.location.href = "index.html";
     });
   }
 });
